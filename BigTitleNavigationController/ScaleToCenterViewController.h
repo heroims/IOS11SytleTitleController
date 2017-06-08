@@ -6,8 +6,8 @@
 //  Copyright © 2017年 admin. All rights reserved.
 //
 
-#import "SL_BaseViewController.h"
+#import "CustomBaseViewController.h"
 
-@interface ScaleToCenterViewController : SL_BaseViewController
+@interface ScaleToCenterViewController : CustomBaseViewController
 
 @end

@@ -44,7 +44,6 @@
     // Do any additional setup after loading the view.
     
     _navigationBar = [[SL_NavigationBar alloc]initWithFrame:CGRectMake(0,0,self.view.frame.size.width, NavigationBarNormalHeight)];
-    [_navigationBar.btnBack setImage:[UIImage imageNamed:@"lk_back_black"] forState:UIControlStateNormal];
     [_navigationBar.btnBack addTarget:self action:@selector(goBackClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_navigationBar];
 
