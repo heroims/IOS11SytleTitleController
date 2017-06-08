@@ -8,6 +8,8 @@ s.author                = { 'heroims' => 'heroims@163.com' }
 s.source                = { :git => 'https://github.com/heroims/IOS11SytleTitleController.git', :tag => "#{s.version}" }
 s.platform              = :ios, '7.0'
 s.source_files          = 'BigTitleController/*.{h,m}'
-s.ios.dependency  	'UIViewControllerScroll'
+s.subspec 'UIViewControllerScroll' do |ss|
+ss.source_files = 'UIViewControllerScroll/*.{h,m}'
+end
 s.requires_arc          = true
 end
