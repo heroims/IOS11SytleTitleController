@@ -58,7 +58,7 @@
 @interface UIScrollView (ScrollBackground)
 
 /**
- 用于记录最后一次滚动到的ContentOffset ，非自动化只是方便记录需要手动实现记录，在
+ 用于记录最后一次滚动到的ContentOffset ，非自动化只是方便记录，需要手动实现，在sl_optimzeScroll即可，其他回调也行看个人需求而定
  */
 @property(nonatomic,assign)CGPoint sl_lastScrollContentOffset;
 
