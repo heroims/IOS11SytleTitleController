@@ -51,6 +51,16 @@
     self.sl_scrollBackgroundContentSize=CGSizeMake(self.view.width, self.view.height+self.navigationBar.height-self.navigationBar.btnBack.bottom-(IS_IPhoneX?ScreenStatusBottom-10:0));
 
     _scrollCount=0;
+    
+}
+
+-(void)setDisableBottomFill:(BOOL)disableBottomFill{
+    _disableBottomFill=disableBottomFill;
+    if (!(_disableBottomFill&&IS_IPhoneX)) {
+        CGRect tmpFrame = self.view.frame;
+        tmpFrame.size.height=ScreenHeigth-33;
+        [(SLBackGroundView*)self.view bgScroll].frame=tmpFrame;
+    }
 }
 
 -(void)setTitle:(NSString *)title{
@@ -65,11 +75,11 @@
 
 -(CGRect)baseViewBounds{
     if (self.navigationBar.hidden||self.navigationBar.height<=0) {
-        return CGRectMake(0, 0, self.view.width, (self.sl_enableScrollBackground?self.sl_scrollBackgroundContentSize.height:self.view.height)-(([self.tabBarController.viewControllers containsObject:self.navigationController]&&[self.navigationController.viewControllers.firstObject isEqual:self])?self.tabBarController.tabBar.height:0));
+        return CGRectMake(0, 0, self.view.width, (self.sl_enableScrollBackground?self.sl_scrollBackgroundContentSize.height:self.view.height)-(([self.tabBarController.viewControllers containsObject:self.navigationController]&&[self.navigationController.viewControllers.firstObject isEqual:self])?self.tabBarController.tabBar.height:0)+((IS_IPhoneX&&_enableScrollToBottomFill)?33:0));
     }
     
     
-    return CGRectMake(0, self.navigationBar.bottom, self.view.width, (self.sl_enableScrollBackground?self.sl_scrollBackgroundContentSize.height:self.view.height)-self.navigationBar.bottom-(([self.tabBarController.viewControllers containsObject:self.navigationController]&&[self.navigationController.viewControllers.firstObject isEqual:self])?self.tabBarController.tabBar.height:0));
+    return CGRectMake(0, self.navigationBar.bottom, self.view.width, (self.sl_enableScrollBackground?self.sl_scrollBackgroundContentSize.height:self.view.height)-self.navigationBar.bottom-(([self.tabBarController.viewControllers containsObject:self.navigationController]&&[self.navigationController.viewControllers.firstObject isEqual:self])?self.tabBarController.tabBar.height:0)+((IS_IPhoneX&&_enableScrollToBottomFill)?33:0));
 }
 
 #pragma mark - SL_UIViewControllerScrollBackgroundProtocol

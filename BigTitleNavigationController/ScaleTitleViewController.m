@@ -25,7 +25,6 @@
     
     self.navigationBar.titleMargin=self.navigationBar.btnBack.right;
     
-    
     for (NSInteger i=0; i<6; i++) {
         UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, self.navigationBar.bottom+i*80, 60, 60)];
         view.backgroundColor=[UIColor yellowColor];

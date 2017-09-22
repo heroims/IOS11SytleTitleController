@@ -29,6 +29,9 @@
     self.navigationBar.btnBack.titleEdgeInsets=UIEdgeInsetsMake(0, 5, 0, 0);
     self.navigationBar.btnBack.width=60;
 
+    UIView *view=[[UIView alloc] initWithFrame:self.baseViewBounds];
+    view.backgroundColor=[UIColor yellowColor];
+    [self.view addSubview:view];
 }
 
 - (void)didReceiveMemoryWarning {

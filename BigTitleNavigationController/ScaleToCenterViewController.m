@@ -17,6 +17,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.enableScrollToBottomFill=YES;
+
     // Do any additional setup after loading the view.
     self.title=@"放大缩小居中";
 
