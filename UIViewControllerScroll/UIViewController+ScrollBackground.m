@@ -48,6 +48,13 @@
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (!scrollView.bounces) {
+        CGRect tmpBounds=scrollView.bounds;
+        if (tmpBounds.origin.y<0) {
+            tmpBounds.origin=CGPointMake(tmpBounds.origin.x, 0);
+            scrollView.bounds=tmpBounds;
+        }
+    }
     if (_scrollBackgroundDelgate&&[_scrollBackgroundDelgate respondsToSelector:@selector(sl_scrollViewDidScroll:)]) {
         [_scrollBackgroundDelgate sl_scrollViewDidScroll:scrollView];
     }

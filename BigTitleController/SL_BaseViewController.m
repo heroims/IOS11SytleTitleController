@@ -10,13 +10,14 @@
 #import "UIView+SLFrame.h"
 
 #define CurrenVersion [[[UIDevice currentDevice] systemVersion] floatValue]
+#define IS_IPhoneX (ScreenHeigth==812)
 
 @interface SL_BaseViewController ()<SL_UIViewControllerScrollBackgroundDelegate>{
     NSString *_startTime;
     
     BOOL _isOptimzeScroll;
     float _optimzeOldY;
-
+    NSInteger _scrollCount;
 }
 
 @end
@@ -27,7 +28,7 @@
     [super viewDidLoad];
     
     [UIView setAnimationsEnabled:YES];
-    
+
     self.view.backgroundColor = [UIColor whiteColor];
     if (self.navigationController.navigationBar.hidden==NO) {
         self.navigationController.navigationBar.hidden = YES;
@@ -46,9 +47,10 @@
     _navigationBar = [[SL_NavigationBar alloc]initWithFrame:CGRectMake(0,0,self.view.frame.size.width, NavigationBarNormalHeight)];
     [_navigationBar.btnBack addTarget:self action:@selector(goBackClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_navigationBar];
+    
+    self.sl_scrollBackgroundContentSize=CGSizeMake(self.view.width, self.view.height+self.navigationBar.height-self.navigationBar.btnBack.bottom-(IS_IPhoneX?ScreenStatusBottom-10:0));
 
-    self.sl_scrollBackgroundContentSize=CGSizeMake(self.view.width, self.view.height+self.navigationBar.height-self.navigationBar.btnBack.bottom);
-
+    _scrollCount=0;
 }
 
 -(void)setTitle:(NSString *)title{
@@ -129,6 +131,10 @@
 
 #pragma mark - SL_UIViewControllerScrollBackgroundDelegate
 -(void)sl_scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (_scrollCount<2&&scrollView.contentOffset.y<0) {
+        return;
+    }
+    _scrollCount++;
     
     CGFloat scale=scrollView.contentOffset.y/(NavigationBarNormalHeight-self.navigationBar.btnBack.bottom);
     
@@ -136,8 +142,8 @@
         [self.navigationBar navigationBarAnimationWithScale:scale];
     }
     if ([scrollView isEqual:[(SLBackGroundView*)self.view bgScroll]]) {
+        [self.navigationBar navigationBarAnimationWithScale:scale];
         if (scrollView.contentOffset.y<=(NavigationBarNormalHeight-(44.+ScreenStatusBottom))&&scrollView.contentOffset.y>=0) {
-            [self.navigationBar navigationBarAnimationWithScale:scale];
         }
     }
 }

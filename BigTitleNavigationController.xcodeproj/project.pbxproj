@@ -263,6 +263,7 @@
 				TargetAttributes = {
 					84DE99F71EE7FAEB00ECEA21 = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = J52K8LY427;
 						ProvisioningStyle = Automatic;
 					};
 					84DE9A101EE7FAEB00ECEA21 = {
@@ -488,8 +489,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = J52K8LY427;
 				INFOPLIST_FILE = BigTitleNavigationController/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.BigTitleNavigationController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -500,8 +502,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = J52K8LY427;
 				INFOPLIST_FILE = BigTitleNavigationController/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.BigTitleNavigationController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
