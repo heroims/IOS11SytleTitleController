@@ -143,8 +143,6 @@
     }
     if ([scrollView isEqual:[(SLBackGroundView*)self.view bgScroll]]) {
         [self.navigationBar navigationBarAnimationWithScale:scale];
-        if (scrollView.contentOffset.y<=(NavigationBarNormalHeight-(44.+ScreenStatusBottom))&&scrollView.contentOffset.y>=0) {
-        }
     }
 }
 
