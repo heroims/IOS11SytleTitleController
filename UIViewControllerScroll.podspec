@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name                  = 'UIViewControllerScroll'
-s.version               = '1.0'
+s.version               = '1.1'
 s.summary               = 'make UIViewController self.view can scroll'
 s.homepage              = 'https://github.com/heroims/IOS11SytleTitleController'
 s.license               = { :type => 'MIT', :file => 'README.md' }

@@ -45,6 +45,8 @@
 /* Begin PBXFileReference section */
 		849619E11EE92F130075DC29 /* CustomBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomBaseViewController.h; sourceTree = "<group>"; };
 		849619E21EE92F130075DC29 /* CustomBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomBaseViewController.m; sourceTree = "<group>"; };
+		84BD31B61F74F57B003C7923 /* IOS11SytleTitleController.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = IOS11SytleTitleController.podspec; sourceTree = SOURCE_ROOT; };
+		84BD31B71F74F582003C7923 /* UIViewControllerScroll.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = UIViewControllerScroll.podspec; sourceTree = SOURCE_ROOT; };
 		84DE99F81EE7FAEB00ECEA21 /* BigTitleNavigationController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BigTitleNavigationController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84DE99FC1EE7FAEB00ECEA21 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		84DE99FE1EE7FAEB00ECEA21 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -125,6 +127,8 @@
 		84DE99FA1EE7FAEB00ECEA21 /* BigTitleNavigationController */ = {
 			isa = PBXGroup;
 			children = (
+				84BD31B61F74F57B003C7923 /* IOS11SytleTitleController.podspec */,
+				84BD31B71F74F582003C7923 /* UIViewControllerScroll.podspec */,
 				84DE99FE1EE7FAEB00ECEA21 /* AppDelegate.h */,
 				84DE99FF1EE7FAEB00ECEA21 /* AppDelegate.m */,
 				84DE9A011EE7FAEB00ECEA21 /* ViewController.h */,
