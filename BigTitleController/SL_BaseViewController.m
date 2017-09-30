@@ -117,12 +117,21 @@
 #pragma mark - SL_UIViewControllerScrollBackgroundProtocol
 -(void)sl_optimzeScroll:(UIScrollView*)scrollView{
     _optimScrollView=scrollView;
+    if (!IS_IPhoneX&&_enableNavigtionPan&&[(SLBackGroundView*)self.view bgScroll].dragging) {
+        [scrollView setContentOffset:scrollView.contentOffset animated:NO];
+        return;
+    }
+    
     if (scrollView.contentSize.height>scrollView.height&&scrollView.contentSize.height<(scrollView.height+(NavigationBarNormalHeight-self.navigationBar.btnBack.bottom))) {
         scrollView.contentSize=CGSizeMake(scrollView.contentSize.width, (scrollView.height+(NavigationBarNormalHeight-self.navigationBar.btnBack.bottom)));
     }
     
     _isOptimzeScroll=YES;
     
+    if (!_enableNavigtionPan&&!IS_IPhoneX) {
+        [(SLBackGroundView*)self.view bgScroll].scrollEnabled=NO;
+    }
+
     float newY = 0;
     BOOL isUp=NO;
     
