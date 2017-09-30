@@ -18,6 +18,11 @@
     BOOL _isOptimzeScroll;
     float _optimzeOldY;
     NSInteger _scrollCount;
+    
+    CGPoint _beginPanScrollPoint;
+    CGPoint _beginPanScrollContentOffset;
+    CGPoint _beginPanOptimScrollContentOffset;
+
 }
 
 @end
@@ -51,7 +56,8 @@
     self.sl_scrollBackgroundContentSize=CGSizeMake(self.view.width, self.view.height+self.navigationBar.height-self.navigationBar.btnBack.bottom-(IS_IPhoneX?ScreenStatusBottom-10:0));
 
     _scrollCount=0;
-    
+
+    [[(SLBackGroundView*)self.view bgScroll].panGestureRecognizer addTarget:self action:@selector(scrollPanOptim:)];
 }
 
 -(void)setDisableBottomFill:(BOOL)disableBottomFill{
@@ -82,21 +88,40 @@
     return CGRectMake(0, self.navigationBar.bottom, self.view.width, (self.sl_enableScrollBackground?self.sl_scrollBackgroundContentSize.height:self.view.height)-self.navigationBar.bottom-(([self.tabBarController.viewControllers containsObject:self.navigationController]&&[self.navigationController.viewControllers.firstObject isEqual:self])?self.tabBarController.tabBar.height:0)+((IS_IPhoneX&&_enableScrollToBottomFill)?33:0));
 }
 
+#pragma mark -
+-(void)scrollPanOptim:(UIPanGestureRecognizer*)panGesture{
+    CGPoint scrollPoint=[panGesture locationInView:self.view];
+    if (panGesture.state==UIGestureRecognizerStateBegan) {
+        _beginPanScrollPoint=scrollPoint;
+        _beginPanScrollContentOffset=[(UIScrollView*)panGesture.view contentOffset];
+        _beginPanOptimScrollContentOffset=_optimScrollView.contentOffset;
+    }
+    if (panGesture.state==UIGestureRecognizerStateChanged) {
+        CGFloat changeY=scrollPoint.y-_beginPanScrollPoint.y;
+        CGFloat tmpContentOffset=_beginPanScrollContentOffset.y-changeY;
+        if (tmpContentOffset<=0) {
+            if (_optimScrollView) {
+                CGPoint tmpPoint=_beginPanOptimScrollContentOffset;
+                tmpPoint.y-=(changeY/2.);
+                [_optimScrollView setContentOffset:tmpPoint animated:NO];
+            }
+        }
+    }
+    if (panGesture.state==UIGestureRecognizerStateEnded||panGesture.state==UIGestureRecognizerStateCancelled) {
+        if (_optimScrollView.contentOffset.y<0) {
+            [_optimScrollView setContentOffset:CGPointZero animated:YES];
+        }
+    }
+}
+
 #pragma mark - SL_UIViewControllerScrollBackgroundProtocol
 -(void)sl_optimzeScroll:(UIScrollView*)scrollView{
-    if (_enableNavigtionPan&&[(SLBackGroundView*)self.view bgScroll].dragging) {
-        [scrollView setContentOffset:scrollView.contentOffset animated:NO];
-        return;
-    }
-    
+    _optimScrollView=scrollView;
     if (scrollView.contentSize.height>scrollView.height&&scrollView.contentSize.height<(scrollView.height+(NavigationBarNormalHeight-self.navigationBar.btnBack.bottom))) {
         scrollView.contentSize=CGSizeMake(scrollView.contentSize.width, (scrollView.height+(NavigationBarNormalHeight-self.navigationBar.btnBack.bottom)));
     }
     
     _isOptimzeScroll=YES;
-    if (!_enableNavigtionPan) {
-        [(SLBackGroundView*)self.view bgScroll].scrollEnabled=NO;
-    }
     
     float newY = 0;
     BOOL isUp=NO;
@@ -141,6 +166,7 @@
 
 #pragma mark - SL_UIViewControllerScrollBackgroundDelegate
 -(void)sl_scrollViewDidScroll:(UIScrollView *)scrollView{
+    //ios11 开始出现的诡异现象，首次进入scroll乱滚两次
     if (_scrollCount<2&&scrollView.contentOffset.y<0) {
         return;
     }
