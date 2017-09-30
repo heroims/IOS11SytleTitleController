@@ -34,14 +34,20 @@
     table.dataSource=self;
     [self.view addSubview:table];
     
-    UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
+    UIButton *view=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
     view.backgroundColor=[UIColor yellowColor];
     view.center=self.view.center;
     view.sl_enableSuspension=YES;
+    [view addTarget:self action:@selector(viewClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:view];
 
 }
 
+-(void)viewClick{
+    ScaleToCenterViewController *stv=[[ScaleToCenterViewController alloc] init];
+    [self.navigationController pushViewController:stv animated:YES];
+    
+}
 #pragma mark - UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 100;
