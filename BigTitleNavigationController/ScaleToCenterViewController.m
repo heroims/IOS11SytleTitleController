@@ -45,6 +45,7 @@
 
 -(void)viewClick{
     ScaleToCenterViewController *stv=[[ScaleToCenterViewController alloc] init];
+    stv.enableNavigtionPan=YES;
     [self.navigationController pushViewController:stv animated:YES];
     
 }
