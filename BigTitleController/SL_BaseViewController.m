@@ -22,7 +22,10 @@
     CGPoint _beginPanScrollPoint;
     CGPoint _beginPanScrollContentOffset;
     CGPoint _beginPanOptimScrollContentOffset;
-
+    
+    //iphoneX viewWillDisappear神奇的篡改scrollview.contentOffset即使设置contentInsetAdjustmentBehavior也不起作用，暂时未发现解决方法
+    CGPoint _iPoneXDisappearContentOffset;
+    BOOL _willAppear;
 }
 
 @end
@@ -57,9 +60,18 @@
 
     _scrollCount=0;
     
-    if(IS_IPhoneX){
-        [[(SLBackGroundView*)self.view bgScroll].panGestureRecognizer addTarget:self action:@selector(scrollPanOptim:)];    
-    }
+    [[(SLBackGroundView*)self.view bgScroll].panGestureRecognizer addTarget:self action:@selector(scrollPanOptim:)];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    _willAppear=YES;
+    _iPoneXDisappearContentOffset=[(SLBackGroundView*)self.view bgScroll].contentOffset;
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [(SLBackGroundView*)self.view bgScroll].contentOffset=_iPoneXDisappearContentOffset;
+    _willAppear=NO;
 }
 
 -(void)setDisableBottomFill:(BOOL)disableBottomFill{
@@ -119,7 +131,7 @@
 #pragma mark - SL_UIViewControllerScrollBackgroundProtocol
 -(void)sl_optimzeScroll:(UIScrollView*)scrollView{
     _optimScrollView=scrollView;
-    if (!IS_IPhoneX&&_enableNavigtionPan&&[(SLBackGroundView*)self.view bgScroll].dragging) {
+    if (_enableNavigtionPan&&[(SLBackGroundView*)self.view bgScroll].dragging) {
         [scrollView setContentOffset:scrollView.contentOffset animated:NO];
         return;
     }
@@ -130,7 +142,7 @@
     
     _isOptimzeScroll=YES;
     
-    if (!_enableNavigtionPan&&!IS_IPhoneX) {
+    if (!_enableNavigtionPan) {
         [(SLBackGroundView*)self.view bgScroll].scrollEnabled=NO;
     }
 
@@ -177,6 +189,10 @@
 
 #pragma mark - SL_UIViewControllerScrollBackgroundDelegate
 -(void)sl_scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (_willAppear) {
+        [(SLBackGroundView*)self.view bgScroll].bounds=CGRectMake(_iPoneXDisappearContentOffset.x, _iPoneXDisappearContentOffset.y, [(SLBackGroundView*)self.view bgScroll].bounds.size.width, [(SLBackGroundView*)self.view bgScroll].bounds.size.height);
+    }
+
     //ios11 开始出现的诡异现象，首次进入scroll乱滚两次
     if (_scrollCount<2&&scrollView.contentOffset.y<0) {
         return;
