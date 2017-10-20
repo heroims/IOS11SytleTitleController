@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name                  = 'IOS11SytleTitleController'
-s.version               = '1.2'
+s.version               = '1.3'
 s.summary               = 'IOS11Sytle Big Title UIViewController  '
 s.homepage              = 'https://github.com/heroims/IOS11SytleTitleController'
 s.license               = { :type => 'MIT', :file => 'README.md' }
